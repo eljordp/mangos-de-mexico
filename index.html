@@ -664,7 +664,7 @@
 
     $("next").addEventListener("click", function () {
       var s = state.step;
-      if (s === 2 && !valid(2, true)) { (document.getElementById("f-name").value.trim().length > 1 ? form.phone : form.name).focus(); return; }
+      if (s === 2 && !valid(2, true)) { (document.getElementById("f-name").value.trim().length > 1 ? form.phone : document.getElementById("f-name")).focus(); return; }
       if (s === 3) { if (payMode() === "card") { state.step = 4; render(); } else finish(false); return; }
       if (s === 4) { finish(true); return; }
       if (s === 5) { sheet.close(); return; }
