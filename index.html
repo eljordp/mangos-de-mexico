@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mangos de México</title>
+<meta name="description" content="Mangos from Mexico — 12 for $25. Napa on Mondays, Sacramento on Wednesdays.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Figtree:wght@400;600;800&display=swap">
+<style>
+  :root {
+    --ground: #FFFAEE;
+    --ink: #173D27;
+    --ink-soft: #4A6452;
+    --mango: #FFA41B;
+    --mango-deep: #E8730C;
+    --leaf: #2E7D46;
+    --chile: #C8341C;
+    --card: #FFFFFF;
+    --line: #EFDDB8;
+    --on-mango: #173D27;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #13241A; --ink: #FFF3D6; --ink-soft: #C9D8C6;
+      --mango: #FFB23F; --mango-deep: #FF9A2E; --leaf: #6CC58A; --chile: #FF7A5C;
+      --card: #1B3124; --line: #2D4A36; --on-mango: #13241A;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #13241A; --ink: #FFF3D6; --ink-soft: #C9D8C6;
+    --mango: #FFB23F; --mango-deep: #FF9A2E; --leaf: #6CC58A; --chile: #FF7A5C;
+    --card: #1B3124; --line: #2D4A36; --on-mango: #13241A;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font: 400 17px/1.55 "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding-inline: 20px; }
+  h1, h2, .display { font-family: "Lilita One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif; font-weight: 400; letter-spacing: .01em; text-wrap: balance; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--leaf); outline-offset: 3px; border-radius: 6px; }
+
+  /* Language switching */
+  html[lang="en"] [lang="es"]:not(html), html[lang="es"] [lang="en"]:not(html) { display: none !important; }
+
+  /* Top bar */
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 16px; }
+  .brand { font-family: "Lilita One", sans-serif; font-size: 22px; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .lang { display: inline-flex; border: 2px solid var(--ink); border-radius: 999px; overflow: hidden; }
+  .lang button {
+    font: 800 13px/1 "Figtree", sans-serif; letter-spacing: .08em; padding: 8px 14px;
+    background: transparent; color: var(--ink); border: 0; cursor: pointer;
+  }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px; align-items: center; padding-block: 24px 40px; }
+  .eyebrow { font-weight: 800; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--leaf); margin: 0 0 10px; }
+  .hero h1 { font-size: clamp(44px, 8vw, 80px); line-height: .95; margin: 0 0 16px; }
+  .hero h1 em { font-style: normal; color: var(--mango-deep); }
+  .hero p.lede { font-size: 19px; color: var(--ink-soft); max-width: 34ch; margin: 0 0 24px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    font-weight: 800; font-size: 16px; padding: 14px 22px; border-radius: 14px;
+    border: 2px solid var(--ink);
+  }
+  .btn.primary { background: var(--ink); color: var(--ground); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+
+  /* Price tag — the hand-lettered market sign */
+  .sign { position: relative; justify-self: center; width: min(340px, 100%); }
+  .sign svg { width: 100%; height: auto; display: block; }
+  .tag {
+    position: absolute; right: -4px; bottom: 6%;
+    background: var(--chile); color: #fff; transform: rotate(-7deg);
+    padding: 12px 18px 10px; border-radius: 10px; text-align: center;
+    box-shadow: 0 6px 0 rgba(0,0,0,.18);
+  }
+  .tag .big { font-family: "Lilita One", sans-serif; font-size: 42px; line-height: 1; display: block; }
+  .tag .small { font-weight: 800; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+
+  /* Deal band */
+  .band { background: var(--mango); color: var(--on-mango); }
+  .band .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; padding-block: 22px; }
+  .band .deal { font-family: "Lilita One", sans-serif; font-size: clamp(28px, 5vw, 40px); line-height: 1.05; }
+  .band .note { font-weight: 600; max-width: 38ch; }
+
+  section { padding-block: 56px 8px; }
+  section h2 { font-size: clamp(30px, 5vw, 42px); margin: 0 0 8px; line-height: 1.05; }
+  section .sub { color: var(--ink-soft); margin: 0 0 24px; max-width: 60ch; }
+
+  /* Schedule */
+  .days { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .day { background: var(--card); border: 2px solid var(--line); border-radius: 18px; padding: 22px; display: grid; gap: 6px; }
+  .day .when { font-weight: 800; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--leaf); }
+  .day .where { font-family: "Lilita One", sans-serif; font-size: 34px; line-height: 1; }
+  .day .detail { color: var(--ink-soft); }
+  .day .hours { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  /* Varieties */
+  .varieties { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 24px; }
+  .variety { display: grid; grid-template-columns: 44px 1fr; gap: 4px 14px; align-items: start; }
+  .variety .dot { width: 44px; height: 44px; border-radius: 55% 45% 50% 50% / 60% 55% 45% 40%; grid-row: span 2; }
+  .variety h3 { margin: 0; font-size: 18px; }
+  .variety p { margin: 0; color: var(--ink-soft); font-size: 15px; }
+  .season { font-size: 14px; color: var(--ink-soft); margin-top: 18px; }
+
+  /* Tips + FAQ */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .tips { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  .tips li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; }
+  .tips li::before { content: "✓"; font-weight: 800; color: var(--leaf); font-size: 18px; }
+  details { border-bottom: 2px solid var(--line); padding-block: 14px; }
+  details:first-of-type { border-top: 2px solid var(--line); }
+  summary { font-weight: 800; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-size: 22px; line-height: 1; color: var(--mango-deep); }
+  details[open] summary::after { content: "–"; }
+  details p { margin: 10px 0 0; color: var(--ink-soft); }
+
+  /* Order */
+  .order { margin-block: 56px; background: var(--ink); color: var(--ground); border-radius: 24px; padding: 32px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: center; }
+  .order h2 { margin: 0 0 8px; font-size: clamp(30px, 5vw, 44px); line-height: 1.05; }
+  .order p { margin: 0; opacity: .85; }
+  .order .contact { display: grid; gap: 10px; }
+  .order .btn { background: var(--mango); color: #173D27; border-color: var(--mango); justify-content: center; }
+  .order .btn.alt { background: transparent; color: var(--ground); border-color: var(--ground); }
+  .pay { font-size: 14px; opacity: .8; text-align: center; }
+
+  footer { padding-block: 8px 40px; color: var(--ink-soft); font-size: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+
+  @media (max-width: 760px) {
+    .hero, .two, .order { grid-template-columns: 1fr; }
+    .sign { width: min(280px, 80%); }
+    .days { grid-template-columns: 1fr; }
+    .varieties { grid-template-columns: 1fr; }
+    .order { padding: 24px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .sign svg { animation: bob 5s ease-in-out infinite; }
+    @keyframes bob { 50% { transform: translateY(-6px) rotate(-1.5deg); } }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="bar">
+    <a class="brand" href="#top">🥭 <span lang="en">Mangos de México</span><span lang="es">Mangos de México</span></a>
+    <div class="lang" role="group" aria-label="Language / Idioma">
+      <button type="button" id="btn-en" data-set-lang="en" aria-pressed="true">EN</button>
+      <button type="button" id="btn-es" data-set-lang="es" aria-pressed="false">ES</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div>
+        <p class="eyebrow"><span lang="en">Straight from Mexico</span><span lang="es">Directo de México</span></p>
+        <h1>
+          <span lang="en">Sweet, juicy <em>mangos</em> — every week.</span>
+          <span lang="es"><em>Mangos</em> dulces y jugosos — cada semana.</span>
+        </h1>
+        <p class="lede">
+          <span lang="en">Hand-picked mangos from Mexican farms, brought to Napa and Sacramento. Ripe, fragrant, and priced for the whole family.</span>
+          <span lang="es">Mangos escogidos a mano de huertas mexicanas, traídos a Napa y Sacramento. Maduros, aromáticos y a buen precio para toda la familia.</span>
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="#order"><span lang="en">Reserve a dozen</span><span lang="es">Aparta tu docena</span></a>
+          <a class="btn ghost" href="#where"><span lang="en">Where to find us</span><span lang="es">Dónde encontrarnos</span></a>
+        </div>
+      </div>
+
+      <div class="sign" aria-hidden="true">
+        <!-- Placeholder illustration until real photos arrive (see IMAGE_REQUESTS.md) -->
+        <svg viewBox="0 0 300 300">
+          <path d="M150 58 C 118 30, 92 30, 70 44 C 104 44, 126 52, 150 70 Z" fill="#2E7D46"/>
+          <path d="M150 62 C 172 34, 200 28, 226 38 C 196 44, 174 54, 150 72 Z" fill="#3F9A5A"/>
+          <path d="M150 64 L150 80" stroke="#6B4A2B" stroke-width="7" stroke-linecap="round"/>
+          <path d="M150 78 C 222 70, 268 140, 250 206 C 234 262, 170 286, 118 270 C 60 252, 34 196, 50 146 C 64 102, 104 82, 150 78 Z" fill="#FFA41B"/>
+          <path d="M150 78 C 104 82, 64 102, 50 146 C 42 172, 46 200, 60 222 C 70 170, 100 122, 150 78 Z" fill="#E03A1E" opacity=".75"/>
+          <path d="M210 110 C 236 130, 246 164, 238 196" stroke="#FFE39A" stroke-width="10" stroke-linecap="round" fill="none" opacity=".8"/>
+        </svg>
+        <div class="tag"><span class="big">12 / $25</span><span class="small" lang="en">one dozen</span><span class="small" lang="es">la docena</span></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="band">
+  <div class="wrap">
+    <div class="deal"><span lang="en">12 mangos for $25</span><span lang="es">12 mangos por $25</span></div>
+    <div class="note">
+      <span lang="en">Mix and match what's in season. Want more than a dozen? Just ask — we'll bring extra.</span>
+      <span lang="es">Combina las variedades de temporada. ¿Quieres más de una docena? Pídelo y te traemos más.</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section id="where">
+    <h2><span lang="en">Where &amp; when</span><span lang="es">Dónde y cuándo</span></h2>
+    <p class="sub">
+      <span lang="en">Two stops a week. Text us to reserve and we'll send the exact spot the day before.</span>
+      <span lang="es">Dos paradas por semana. Mándanos mensaje para apartar y te enviamos la ubicación exacta un día antes.</span>
+    </p>
+    <div class="days">
+      <article class="day">
+        <span class="when"><span lang="en">Every Monday</span><span lang="es">Todos los lunes</span></span>
+        <span class="where">Napa</span>
+        <span class="hours">10:00 AM – 4:00 PM</span>
+        <span class="detail"><span lang="en">Pickup spot sent by text</span><span lang="es">Punto de entrega por mensaje</span></span>
+      </article>
+      <article class="day">
+        <span class="when"><span lang="en">Every Wednesday</span><span lang="es">Todos los miércoles</span></span>
+        <span class="where">Sacramento</span>
+        <span class="hours">10:00 AM – 4:00 PM</span>
+        <span class="detail"><span lang="en">Pickup spot sent by text</span><span lang="es">Punto de entrega por mensaje</span></span>
+      </article>
+    </div>
+  </section>
+
+  <section id="mangos">
+    <h2><span lang="en">What we bring</span><span lang="es">Lo que traemos</span></h2>
+    <p class="sub">
+      <span lang="en">Varieties change with the harvest in Mexico. Here's what you'll usually find.</span>
+      <span lang="es">Las variedades cambian según la cosecha en México. Esto es lo que normalmente encontrarás.</span>
+    </p>
+    <div class="varieties">
+      <div class="variety">
+        <span class="dot" style="background:#F7C325"></span>
+        <h3>Ataulfo <span lang="en">(Honey)</span><span lang="es">(Manila / Champagne)</span></h3>
+        <p><span lang="en">Small, golden, buttery and super sweet. No strings.</span><span lang="es">Pequeño, dorado, cremoso y muy dulce. Sin hebras.</span></p>
+      </div>
+      <div class="variety">
+        <span class="dot" style="background:linear-gradient(135deg,#6BAA3C,#E0502A)"></span>
+        <h3>Kent</h3>
+        <p><span lang="en">Big and juicy with rich, deep flavor. Great for eating fresh.</span><span lang="es">Grande y jugoso, de sabor intenso. Ideal para comer fresco.</span></p>
+      </div>
+      <div class="variety">
+        <span class="dot" style="background:linear-gradient(135deg,#E0502A,#F4A62A)"></span>
+        <h3>Tommy Atkins</h3>
+        <p><span lang="en">Firm and colorful. Holds up for slicing, salsas and chamoy.</span><span lang="es">Firme y colorido. Perfecto para rebanar, salsas y chamoyadas.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="two">
+      <div>
+        <h2><span lang="en">Picking a ripe one</span><span lang="es">Cómo escoger uno maduro</span></h2>
+        <ul class="tips">
+          <li><span><span lang="en">Give it a gentle squeeze — ripe mangos give a little, like a peach.</span><span lang="es">Apriétalo suavemente — el mango maduro cede un poco, como un durazno.</span></span></li>
+          <li><span><span lang="en">Smell the stem end. Sweet and fruity means it's ready.</span><span lang="es">Huele el lado del tallo. Si huele dulce, ya está listo.</span></span></li>
+          <li><span><span lang="en">Don't go by color alone — some stay green when ripe.</span><span lang="es">No te guíes solo por el color — algunos siguen verdes aunque estén maduros.</span></span></li>
+          <li><span><span lang="en">Still firm? Leave it on the counter 2–3 days, then refrigerate.</span><span lang="es">¿Todavía duro? Déjalo afuera 2–3 días y luego al refri.</span></span></li>
+        </ul>
+      </div>
+      <div>
+        <h2><span lang="en">Questions</span><span lang="es">Preguntas</span></h2>
+        <details>
+          <summary><span lang="en">Do I need to reserve?</span><span lang="es">¿Tengo que apartar?</span></summary>
+          <p><span lang="en">Not required, but we sell out. Text us by the day before to hold your dozen.</span><span lang="es">No es obligatorio, pero se acaban. Mándanos mensaje un día antes para apartar tu docena.</span></p>
+        </details>
+        <details>
+          <summary><span lang="en">How do I pay?</span><span lang="es">¿Cómo pago?</span></summary>
+          <p><span lang="en">Cash, Zelle or Venmo at pickup.</span><span lang="es">Efectivo, Zelle o Venmo al recoger.</span></p>
+        </details>
+        <details>
+          <summary><span lang="en">Can I buy a whole box?</span><span lang="es">¿Puedo comprar una caja completa?</span></summary>
+          <p><span lang="en">Yes — great for restaurants, parties and aguas frescas. Text us for box pricing.</span><span lang="es">Sí — ideal para restaurantes, fiestas y aguas frescas. Pregúntanos el precio por caja.</span></p>
+        </details>
+        <details>
+          <summary><span lang="en">Where do they come from?</span><span lang="es">¿De dónde vienen?</span></summary>
+          <p><span lang="en">Farms in Mexico. We bring them up fresh every week.</span><span lang="es">De huertas en México. Los traemos frescos cada semana.</span></p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="order" id="order">
+    <div>
+      <h2><span lang="en">Save your dozen</span><span lang="es">Aparta tu docena</span></h2>
+      <p>
+        <span lang="en">Send us your name, how many dozen, and Napa (Mon) or Sacramento (Wed).</span>
+        <span lang="es">Mándanos tu nombre, cuántas docenas, y si es Napa (lunes) o Sacramento (miércoles).</span>
+      </p>
+    </div>
+    <div class="contact">
+      <!-- TODO: replace PHONE with the real number in both links below -->
+      <a class="btn" id="sms-link" href="sms:+10000000000"><span lang="en">Text to order</span><span lang="es">Pide por mensaje</span></a>
+      <a class="btn alt" href="tel:+10000000000"><span lang="en">Call</span><span lang="es">Llamar</span> · (000) 000-0000</a>
+      <div class="pay"><span lang="en">Cash · Zelle · Venmo</span><span lang="es">Efectivo · Zelle · Venmo</span></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Mangos de México</span>
+    <span><span lang="en">Napa · Mondays &nbsp;/&nbsp; Sacramento · Wednesdays</span><span lang="es">Napa · lunes &nbsp;/&nbsp; Sacramento · miércoles</span></span>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    function setLang(l) {
+      root.setAttribute("lang", l);
+      document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.setLang === l));
+      });
+      var sms = document.getElementById("sms-link");
+      var body = l === "es" ? "Hola, quiero apartar mangos: " : "Hi, I'd like to reserve mangos: ";
+      sms.href = sms.href.split("?")[0] + "?&body=" + encodeURIComponent(body);
+      try { localStorage.setItem("mango-lang", l); } catch (e) {}
+    }
+    var saved = null;
+    try { saved = localStorage.getItem("mango-lang"); } catch (e) {}
+    var initial = saved || ((navigator.language || "en").toLowerCase().indexOf("es") === 0 ? "es" : "en");
+    setLang(initial);
+    document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+      b.addEventListener("click", function () { setLang(b.dataset.setLang); });
+    });
+  })();
+</script>
+</body>
+</html>
