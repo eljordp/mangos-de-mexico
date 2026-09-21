@@ -137,6 +137,119 @@
 
   footer { padding-block: 8px 40px; color: var(--ink-soft); font-size: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
 
+  /* ---------- Order sheet ---------- */
+  .order .btn { cursor: pointer; font-family: inherit; }
+  dialog.sheet {
+    border: 0; padding: 0; margin: auto; width: min(520px, 100%); max-height: min(760px, 100dvh);
+    background: var(--ground); color: var(--ink); border-radius: 24px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.35); overflow: hidden;
+  }
+  dialog.sheet::backdrop { background: rgba(10, 25, 16, .55); }
+  dialog.sheet[open] { display: flex; flex-direction: column; }
+  .sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px 8px; }
+  .sheet-head .title { font-family: "Lilita One", sans-serif; font-size: 24px; }
+  .icon-btn { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--line); background: var(--card); color: var(--ink); font-size: 20px; line-height: 1; cursor: pointer; display: grid; place-items: center; }
+  .progress { display: flex; gap: 6px; padding: 0 20px 12px; }
+  .progress i { flex: 1; height: 5px; border-radius: 99px; background: var(--line); transition: background .2s; }
+  .progress i.on { background: var(--mango-deep); }
+  .sheet-body { padding: 8px 20px 20px; overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; }
+  .sheet-foot {
+    display: flex; gap: 10px; align-items: center; padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px));
+    border-top: 2px solid var(--line); background: var(--card);
+  }
+  .sheet-foot .sum { flex: 1; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.2; }
+  .sheet-foot .sum small { display: block; font-weight: 600; color: var(--ink-soft); font-size: 13px; }
+  .go { min-height: 52px; padding: 0 22px; border-radius: 14px; border: 0; background: var(--ink); color: var(--ground); font: 800 16px/1 "Figtree", sans-serif; cursor: pointer; }
+  .go:disabled { opacity: .4; cursor: not-allowed; }
+  .back { min-height: 52px; padding: 0 16px; border-radius: 14px; border: 2px solid var(--line); background: transparent; color: var(--ink); font: 800 15px/1 "Figtree", sans-serif; cursor: pointer; }
+  .step h3 { font-size: 20px; margin: 4px 0 4px; }
+  .step .hint { color: var(--ink-soft); margin: 0 0 16px; font-size: 15px; }
+  .step + .step { margin-top: 0; }
+
+  .qty { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 18px; background: var(--card); border: 2px solid var(--line); border-radius: 18px; }
+  .qty button { width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--ink); background: transparent; color: var(--ink); font-size: 28px; font-weight: 800; cursor: pointer; }
+  .qty button:disabled { opacity: .3; }
+  .qty output { text-align: center; min-width: 110px; }
+  .qty output b { font-family: "Lilita One", sans-serif; font-size: 48px; line-height: 1; display: block; font-weight: 400; }
+  .qty output span { font-size: 14px; color: var(--ink-soft); font-weight: 600; }
+  .qty-note { text-align: center; font-size: 14px; color: var(--ink-soft); margin-top: 8px; font-variant-numeric: tabular-nums; }
+
+  .label { font-weight: 800; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--leaf); margin: 22px 0 10px; display: block; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { position: relative; }
+  .chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .chip span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 2px solid var(--line); background: var(--card); font-weight: 700; font-size: 15px; }
+  .chip input:checked + span { border-color: var(--ink); background: var(--ink); color: var(--ground); }
+  .chip input:focus-visible + span { outline: 3px solid var(--leaf); outline-offset: 2px; }
+
+  .places { display: grid; gap: 10px; }
+  .place { position: relative; display: block; }
+  .place input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .place .box { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 16px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); }
+  .place .box b { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 24px; line-height: 1.1; }
+  .place .box small { color: var(--ink-soft); font-size: 14px; grid-column: 1; }
+  .place .box .radio { grid-row: 1 / span 2; grid-column: 2; align-self: center; width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--line); }
+  .place input:checked + .box { border-color: var(--ink); }
+  .place input:checked + .box .radio { border: 7px solid var(--mango-deep); }
+  .place input:focus-visible + .box { outline: 3px solid var(--leaf); outline-offset: 2px; }
+
+  .field { display: grid; gap: 6px; margin-bottom: 14px; }
+  .field label { font-weight: 700; font-size: 15px; }
+  .field input, .field textarea {
+    font: 400 17px/1.4 "Figtree", sans-serif; /* 16px+ stops iOS zoom on focus */
+    padding: 14px; border-radius: 12px; border: 2px solid var(--line); background: var(--card); color: var(--ink); width: 100%;
+  }
+  .field input:focus, .field textarea:focus { border-color: var(--leaf); outline: none; }
+  .field .err { color: var(--chile); font-size: 14px; font-weight: 600; }
+
+  .review { background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 4px 16px; margin-bottom: 18px; }
+  .review div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+  .review div:last-child { border-bottom: 0; }
+  .review dt { color: var(--ink-soft); }
+  .review dd { margin: 0; font-weight: 700; text-align: right; }
+  .review .total dd { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 24px; }
+
+  .paybox { background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 12px; }
+  .paybox .fake { padding: 14px; border-radius: 10px; border: 2px dashed var(--line); color: var(--ink-soft); font-variant-numeric: tabular-nums; letter-spacing: .06em; }
+  .demo-note { font-size: 13px; color: var(--ink-soft); background: color-mix(in srgb, var(--mango) 18%, transparent); padding: 10px 12px; border-radius: 10px; }
+
+  .done { text-align: center; padding: 10px 0; }
+  .done .big-check { width: 84px; height: 84px; border-radius: 50%; background: var(--leaf); color: #fff; font-size: 44px; display: grid; place-items: center; margin: 8px auto 12px; }
+  .done h3 { font-family: "Lilita One", sans-serif; font-weight: 400; font-size: 32px; margin: 0 0 6px; }
+  .done .code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-weight: 700; font-size: 20px; letter-spacing: .1em; background: var(--card); border: 2px dashed var(--line); border-radius: 12px; padding: 10px 16px; display: inline-block; margin: 10px 0 16px; }
+
+  /* Sticky order bar — phones only */
+  .mbar { display: none; }
+  @media (max-width: 760px) {
+    body { font-size: 16px; padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+    .wrap { padding-inline: 16px; }
+    .bar { padding-block: 12px; }
+    .brand { font-size: 19px; }
+    .hero { gap: 12px; padding-block: 8px 28px; }
+    .hero .sign { order: -1; width: min(220px, 62%); }
+    .tag { right: -18px; }
+    .tag .big { font-size: 32px; }
+    .hero h1 { font-size: clamp(38px, 11vw, 52px); }
+    .hero p.lede { font-size: 17px; }
+    .cta .btn { flex: 1 1 100%; justify-content: center; min-height: 52px; }
+    section { padding-block: 40px 4px; }
+    .day .where { font-size: 30px; }
+    .order { margin-block: 40px; border-radius: 20px; }
+    .order .btn { min-height: 52px; }
+    footer { flex-direction: column; }
+
+    .mbar {
+      display: flex; align-items: center; gap: 12px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+      background: var(--card); border-top: 2px solid var(--line); box-shadow: 0 -8px 24px rgba(0,0,0,.08);
+    }
+    .mbar .price { flex: 1; font-family: "Lilita One", sans-serif; font-size: 22px; line-height: 1.1; }
+    .mbar .price small { display: block; font-family: "Figtree", sans-serif; font-weight: 600; font-size: 13px; color: var(--ink-soft); }
+    .mbar .go { background: var(--mango); color: #173D27; }
+
+    dialog.sheet { width: 100%; max-width: 100%; height: 100dvh; max-height: 100dvh; border-radius: 0; margin: 0; }
+    .sheet-head { padding-top: calc(12px + env(safe-area-inset-top, 0px)); }
+  }
   @media (max-width: 760px) {
     .hero, .two, .order { grid-template-columns: 1fr; }
     .sign { width: min(280px, 80%); }
@@ -290,15 +403,15 @@
     <div>
       <h2><span lang="en">Save your dozen</span><span lang="es">Aparta tu docena</span></h2>
       <p>
-        <span lang="en">Send us your name, how many dozen, and Napa (Mon) or Sacramento (Wed).</span>
-        <span lang="es">Mándanos tu nombre, cuántas docenas, y si es Napa (lunes) o Sacramento (miércoles).</span>
+        <span lang="en">Pick how many, choose Napa (Mon) or Sacramento (Wed), and we'll have them ready.</span>
+        <span lang="es">Elige cuántas, escoge Napa (lunes) o Sacramento (miércoles), y te las tenemos listas.</span>
       </p>
     </div>
     <div class="contact">
-      <!-- TODO: replace PHONE with the real number in both links below -->
-      <a class="btn" id="sms-link" href="sms:+10000000000"><span lang="en">Text to order</span><span lang="es">Pide por mensaje</span></a>
-      <a class="btn alt" href="tel:+10000000000"><span lang="en">Call</span><span lang="es">Llamar</span> · (000) 000-0000</a>
-      <div class="pay"><span lang="en">Cash · Zelle · Venmo</span><span lang="es">Efectivo · Zelle · Venmo</span></div>
+      <button type="button" class="btn" data-open-order><span lang="en">Order now</span><span lang="es">Ordenar ahora</span></button>
+      <!-- TODO: replace with the real number -->
+      <a class="btn alt" id="sms-link" href="sms:+10000000000"><span lang="en">Or text us</span><span lang="es">O mándanos mensaje</span></a>
+      <div class="pay"><span lang="en">Cash · Zelle · Venmo · Card</span><span lang="es">Efectivo · Zelle · Venmo · Tarjeta</span></div>
     </div>
   </section>
 
@@ -308,23 +421,285 @@
   </footer>
 </div>
 
+<div class="mbar">
+  <div class="price">12 / $25<small><span lang="en">Napa Mon · Sac Wed</span><span lang="es">Napa lun · Sac mié</span></small></div>
+  <button type="button" class="go" data-open-order><span lang="en">Order now</span><span lang="es">Ordenar</span></button>
+</div>
+
+<dialog class="sheet" id="order-sheet" aria-labelledby="sheet-title">
+  <div class="sheet-head">
+    <span class="title" id="sheet-title"><span lang="en">Your order</span><span lang="es">Tu pedido</span></span>
+    <button type="button" class="icon-btn" id="close-sheet" aria-label="Close / Cerrar">✕</button>
+  </div>
+  <div class="progress" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+  <form class="sheet-body" id="order-form" novalidate>
+    <!-- 1: quantity -->
+    <div class="step" data-step="0">
+      <h3><span lang="en">How many?</span><span lang="es">¿Cuántos?</span></h3>
+      <p class="hint"><span lang="en">Sold by the dozen — 12 mangos for $25.</span><span lang="es">Por docena — 12 mangos por $25.</span></p>
+      <div class="qty">
+        <button type="button" id="minus" aria-label="Less / Menos">−</button>
+        <output id="qty-out" aria-live="polite"><b id="qty-num">1</b><span><span lang="en">dozen</span><span lang="es">docena(s)</span></span></output>
+        <button type="button" id="plus" aria-label="More / Más">+</button>
+      </div>
+      <div class="qty-note" id="qty-note"></div>
+
+      <span class="label"><span lang="en">Variety</span><span lang="es">Variedad</span></span>
+      <div class="chips">
+        <label class="chip"><input type="radio" name="variety" id="v-mix" value="mix" checked><span><span lang="en">Mix it up</span><span lang="es">Surtido</span></span></label>
+        <label class="chip"><input type="radio" name="variety" id="v-ataulfo" value="Ataulfo"><span>Ataulfo</span></label>
+        <label class="chip"><input type="radio" name="variety" id="v-kent" value="Kent"><span>Kent</span></label>
+        <label class="chip"><input type="radio" name="variety" id="v-tommy" value="Tommy Atkins"><span>Tommy</span></label>
+      </div>
+    </div>
+
+    <!-- 2: pickup -->
+    <div class="step" data-step="1" hidden>
+      <h3><span lang="en">Where do you pick up?</span><span lang="es">¿Dónde recoges?</span></h3>
+      <p class="hint"><span lang="en">10 AM – 4 PM. We text the exact spot the day before.</span><span lang="es">10 AM – 4 PM. Te mandamos la ubicación exacta un día antes.</span></p>
+      <div class="places">
+        <label class="place"><input type="radio" name="city" id="c-napa" value="napa"><span class="box"><b>Napa</b><small><span lang="en">Mondays</span><span lang="es">Lunes</span></small><i class="radio"></i></span></label>
+        <label class="place"><input type="radio" name="city" id="c-sac" value="sac"><span class="box"><b>Sacramento</b><small><span lang="en">Wednesdays</span><span lang="es">Miércoles</span></small><i class="radio"></i></span></label>
+      </div>
+      <div id="date-wrap" hidden>
+        <span class="label"><span lang="en">Which day?</span><span lang="es">¿Qué día?</span></span>
+        <div class="chips" id="dates"></div>
+      </div>
+    </div>
+
+    <!-- 3: contact -->
+    <div class="step" data-step="2" hidden>
+      <h3><span lang="en">Your info</span><span lang="es">Tus datos</span></h3>
+      <p class="hint"><span lang="en">So we can text you the pickup spot.</span><span lang="es">Para mandarte la ubicación por mensaje.</span></p>
+      <div class="field">
+        <label for="f-name"><span lang="en">Name</span><span lang="es">Nombre</span></label>
+        <input id="f-name" name="name" autocomplete="name" autocapitalize="words" required>
+        <span class="err" id="e-name" hidden><span lang="en">Enter your name.</span><span lang="es">Escribe tu nombre.</span></span>
+      </div>
+      <div class="field">
+        <label for="f-phone"><span lang="en">Mobile number</span><span lang="es">Número de celular</span></label>
+        <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(707) 555-0123" required>
+        <span class="err" id="e-phone" hidden><span lang="en">Enter a 10-digit number.</span><span lang="es">Escribe un número de 10 dígitos.</span></span>
+      </div>
+      <div class="field">
+        <label for="f-notes"><span lang="en">Notes (optional)</span><span lang="es">Notas (opcional)</span></label>
+        <textarea id="f-notes" name="notes" rows="2"></textarea>
+      </div>
+    </div>
+
+    <!-- 4: review + payment method -->
+    <div class="step" data-step="3" hidden>
+      <h3><span lang="en">Review</span><span lang="es">Revisa tu pedido</span></h3>
+      <dl class="review" id="review"></dl>
+      <span class="label"><span lang="en">How do you want to pay?</span><span lang="es">¿Cómo quieres pagar?</span></span>
+      <div class="places">
+        <label class="place"><input type="radio" name="pay" id="p-card" value="card" checked><span class="box"><b><span lang="en">Pay now</span><span lang="es">Pagar ahora</span></b><small><span lang="en">Card, Apple Pay, Google Pay</span><span lang="es">Tarjeta, Apple Pay, Google Pay</span></small><i class="radio"></i></span></label>
+        <label class="place"><input type="radio" name="pay" id="p-pickup" value="pickup"><span class="box"><b><span lang="en">Pay at pickup</span><span lang="es">Pagar al recoger</span></b><small><span lang="en">Cash, Zelle or Venmo</span><span lang="es">Efectivo, Zelle o Venmo</span></small><i class="radio"></i></span></label>
+      </div>
+    </div>
+
+    <!-- 5: payment -->
+    <div class="step" data-step="4" hidden>
+      <h3><span lang="en">Payment</span><span lang="es">Pago</span></h3>
+      <p class="hint"><span lang="en">Secure checkout.</span><span lang="es">Pago seguro.</span></p>
+      <div class="paybox">
+        <div class="fake">•••• •••• •••• ••••</div>
+        <div class="fake">MM / YY &nbsp;&nbsp; CVC</div>
+        <div class="demo-note">
+          <span lang="en"><b>Demo:</b> this is where Stripe checkout plugs in. No card is charged — tap the button to simulate a successful payment.</span>
+          <span lang="es"><b>Demo:</b> aquí se conecta el pago con Stripe. No se cobra nada — toca el botón para simular un pago exitoso.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6: confirmation -->
+    <div class="step done" data-step="5" hidden>
+      <div class="big-check" aria-hidden="true">✓</div>
+      <h3><span lang="en">You're set!</span><span lang="es">¡Listo!</span></h3>
+      <p id="done-msg"></p>
+      <div class="code" id="order-code"></div>
+      <p class="hint"><span lang="en">Show this code at pickup.</span><span lang="es">Muestra este código al recoger.</span></p>
+    </div>
+  </form>
+
+  <div class="sheet-foot">
+    <button type="button" class="back" id="back"><span lang="en">Back</span><span lang="es">Atrás</span></button>
+    <div class="sum" id="foot-sum"></div>
+    <button type="button" class="go" id="next"></button>
+  </div>
+</dialog>
+
 <script>
   (function () {
+    var PRICE = 25;
+    var PHONE = "+10000000000"; // TODO: real number
     var root = document.documentElement;
+    var lang = "en";
+    var $ = function (id) { return document.getElementById(id); };
+    var t = function (en, es) { return lang === "es" ? es : en; };
+
+    // ---------- language ----------
     function setLang(l) {
+      lang = l;
       root.setAttribute("lang", l);
       document.querySelectorAll("[data-set-lang]").forEach(function (b) {
         b.setAttribute("aria-pressed", String(b.dataset.setLang === l));
       });
-      var sms = document.getElementById("sms-link");
-      var body = l === "es" ? "Hola, quiero apartar mangos: " : "Hi, I'd like to reserve mangos: ";
-      sms.href = sms.href.split("?")[0] + "?&body=" + encodeURIComponent(body);
+      $("sms-link").href = "sms:" + PHONE + "?&body=" + encodeURIComponent(t("Hi, I'd like to reserve mangos: ", "Hola, quiero apartar mangos: "));
       try { localStorage.setItem("mango-lang", l); } catch (e) {}
+      if (sheet.open) render();
     }
+
+    // ---------- order state ----------
+    var sheet = $("order-sheet");
+    var form = $("order-form");
+    var state = { step: 0, qty: 1, city: null, date: null };
+    var steps = form.querySelectorAll(".step");
+    var bars = document.querySelectorAll(".progress i");
+
+    function money(n) { return "$" + n; }
+    function payMode() { return form.pay.value; }
+
+    function nextDates(weekday) { // 1 = Mon, 3 = Wed; earliest is tomorrow
+      var out = [], d = new Date();
+      d.setHours(12, 0, 0, 0);
+      d.setDate(d.getDate() + 1);
+      while (out.length < 3) {
+        if (d.getDay() === weekday) out.push(new Date(d));
+        d.setDate(d.getDate() + 1);
+      }
+      return out;
+    }
+    function fmtDate(d) {
+      return d.toLocaleDateString(lang === "es" ? "es-MX" : "en-US", { weekday: "short", month: "short", day: "numeric" });
+    }
+    function cityName(c) { return c === "napa" ? "Napa" : "Sacramento"; }
+
+    function renderDates() {
+      var wrap = $("dates");
+      wrap.innerHTML = "";
+      if (!state.city) { $("date-wrap").hidden = true; return; }
+      $("date-wrap").hidden = false;
+      nextDates(state.city === "napa" ? 1 : 3).forEach(function (d, i) {
+        var iso = d.toISOString().slice(0, 10);
+        var lab = document.createElement("label");
+        lab.className = "chip";
+        lab.innerHTML = '<input type="radio" name="date" id="d-' + i + '" value="' + iso + '"><span></span>';
+        lab.querySelector("span").textContent = fmtDate(d);
+        var input = lab.querySelector("input");
+        if (state.date === iso) input.checked = true;
+        input.addEventListener("change", function () { state.date = iso; render(); });
+        wrap.appendChild(lab);
+      });
+    }
+
+    function valid(step, show) {
+      if (step === 1) return !!(state.city && state.date);
+      if (step === 2) {
+        var okName = document.getElementById("f-name").value.trim().length > 1;
+        var okPhone = form.phone.value.replace(/\D/g, "").replace(/^1(?=\d{10}$)/, "").length === 10;
+        if (show) { $("e-name").hidden = okName; $("e-phone").hidden = okPhone; }
+        return okName && okPhone;
+      }
+      return true;
+    }
+
+    function selectedDate() { return new Date(state.date + "T12:00:00"); }
+
+    function renderReview() {
+      var rows = [
+        [t("Mangos", "Mangos"), state.qty * 12 + " (" + state.qty + " " + t(state.qty > 1 ? "dozen" : "dozen", state.qty > 1 ? "docenas" : "docena") + ")"],
+        [t("Variety", "Variedad"), form.variety.value === "mix" ? t("Mixed", "Surtido") : form.variety.value],
+        [t("Pickup", "Recoger"), cityName(state.city) + " · " + fmtDate(selectedDate())],
+        [t("Time", "Hora"), "10 AM – 4 PM"],
+        [t("Name", "Nombre"), document.getElementById("f-name").value.trim()],
+        [t("Phone", "Teléfono"), form.phone.value.trim()]
+      ];
+      var html = rows.map(function (r) { return "<div><dt></dt><dd></dd></div>"; }).join("") +
+        '<div class="total"><dt>Total</dt><dd>' + money(state.qty * PRICE) + "</dd></div>";
+      $("review").innerHTML = html;
+      $("review").querySelectorAll("div").forEach(function (div, i) {
+        if (!rows[i]) return;
+        div.querySelector("dt").textContent = rows[i][0];
+        div.querySelector("dd").textContent = rows[i][1];
+      });
+    }
+
+    function render() {
+      var s = state.step;
+      steps.forEach(function (el) { el.hidden = Number(el.dataset.step) !== s; });
+      bars.forEach(function (b, i) { b.classList.toggle("on", i <= s); });
+      $("qty-num").textContent = state.qty;
+      $("minus").disabled = state.qty <= 1;
+      $("plus").disabled = state.qty >= 10;
+      $("qty-note").textContent = state.qty * 12 + " mangos · " + money(state.qty * PRICE);
+      renderDates();
+      if (s === 3) renderReview();
+
+      var total = money(state.qty * PRICE);
+      $("foot-sum").innerHTML = s === 5 ? "" : total + "<small></small>";
+      if (s !== 5) $("foot-sum").querySelector("small").textContent = state.qty * 12 + " mangos";
+      $("back").hidden = s === 0 || s === 5;
+
+      var next = $("next");
+      next.textContent =
+        s === 3 ? (payMode() === "card" ? t("Continue to payment", "Continuar al pago") : t("Place order", "Hacer pedido")) :
+        s === 4 ? t("Pay ", "Pagar ") + total :
+        s === 5 ? t("Done", "Listo") :
+        t("Next", "Siguiente");
+      next.disabled = !valid(s, false) && s !== 2;
+    }
+
+    function finish(paid) {
+      var code = "MX-" + Math.random().toString(36).slice(2, 6).toUpperCase();
+      $("order-code").textContent = code;
+      $("done-msg").textContent = t(
+        (paid ? "Paid " : "Reserved ") + state.qty * 12 + " mangos for pickup in " + cityName(state.city) + " on " + fmtDate(selectedDate()) + ". " + (paid ? "" : "Pay " + money(state.qty * PRICE) + " at pickup. ") + "We'll text you the spot the day before.",
+        (paid ? "Pagaste " : "Apartaste ") + state.qty * 12 + " mangos para recoger en " + cityName(state.city) + " el " + fmtDate(selectedDate()) + ". " + (paid ? "" : "Paga " + money(state.qty * PRICE) + " al recoger. ") + "Te mandamos la ubicación un día antes."
+      );
+      state.step = 5;
+      render();
+    }
+
+    $("next").addEventListener("click", function () {
+      var s = state.step;
+      if (s === 2 && !valid(2, true)) { (document.getElementById("f-name").value.trim().length > 1 ? form.phone : form.name).focus(); return; }
+      if (s === 3) { if (payMode() === "card") { state.step = 4; render(); } else finish(false); return; }
+      if (s === 4) { finish(true); return; }
+      if (s === 5) { sheet.close(); return; }
+      state.step = s + 1;
+      render();
+      form.scrollTop = 0;
+    });
+    $("back").addEventListener("click", function () { state.step = state.step === 4 ? 3 : Math.max(0, state.step - 1); render(); });
+    $("minus").addEventListener("click", function () { state.qty = Math.max(1, state.qty - 1); render(); });
+    $("plus").addEventListener("click", function () { state.qty = Math.min(10, state.qty + 1); render(); });
+    form.querySelectorAll('input[name="city"]').forEach(function (r) {
+      r.addEventListener("change", function () { state.city = r.value; state.date = null; render(); });
+    });
+    form.querySelectorAll('input[name="pay"]').forEach(function (r) { r.addEventListener("change", render); });
+    ["f-name", "f-phone"].forEach(function (id) {
+      $(id).addEventListener("input", function () { $("e-" + id.slice(2)).hidden = true; render(); });
+    });
+    form.addEventListener("submit", function (e) { e.preventDefault(); $("next").click(); });
+
+    function openSheet() {
+      if (state.step === 5) state = { step: 0, qty: 1, city: null, date: null }, form.reset();
+      render();
+      if (sheet.showModal) sheet.showModal(); else sheet.setAttribute("open", "");
+    }
+    document.querySelectorAll("[data-open-order]").forEach(function (b) { b.addEventListener("click", openSheet); });
+    document.querySelectorAll('a[href="#order"]').forEach(function (a) {
+      a.addEventListener("click", function (e) { e.preventDefault(); openSheet(); });
+    });
+    $("close-sheet").addEventListener("click", function () { sheet.close(); });
+    sheet.addEventListener("click", function (e) { if (e.target === sheet) sheet.close(); });
+
+    // ---------- boot ----------
     var saved = null;
     try { saved = localStorage.getItem("mango-lang"); } catch (e) {}
-    var initial = saved || ((navigator.language || "en").toLowerCase().indexOf("es") === 0 ? "es" : "en");
-    setLang(initial);
+    setLang(saved || ((navigator.language || "en").toLowerCase().indexOf("es") === 0 ? "es" : "en"));
     document.querySelectorAll("[data-set-lang]").forEach(function (b) {
       b.addEventListener("click", function () { setLang(b.dataset.setLang); });
     });
